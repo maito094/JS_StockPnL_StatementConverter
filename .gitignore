@@ -263,6 +263,7 @@ FakesAssemblies/
 *.opt
 
 # System Files
+*.ods
 *.csv
 *.xls
 *.xlsx
