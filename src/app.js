@@ -1,16 +1,46 @@
+import { getMetadataForFileList } from './util/file_util.js';
+
+window.addEventListener(
+  'dragover',
+  function (e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'none';
+  },
+  false
+);
+
+window.addEventListener(
+  'drop',
+  function (e) {
+    e.preventDefault();
+  },
+  false
+);
+
 let csvFile = document.getElementById('fileCSV');
+let labelFile = document.querySelector('.dragNdrop label');
+labelFile.addEventListener('click', triggerInputDialog);
+csvFile.style.opacity = 0;
+
+function triggerInputDialog() {
+  csvFile.click();
+}
+
+let records = [];
 
 csvFile.addEventListener('change', previewFile);
 
 function previewFile(e) {
+  e.stopPropagation();
   e.preventDefault();
 
   try {
     const content = document.querySelector('.content');
-    const file = csvFile.files[0];
+    const file = csvFile.files[0] || e.dataTransfer.files[0];
 
     getMetadataForFileList(file);
-
+    csvFile.value = '';
+    `${file.name}`;
     const reader = new FileReader();
 
     reader.addEventListener('load', () => {
@@ -24,31 +54,17 @@ function previewFile(e) {
   }
 }
 
-// USE A FUNCTION TO VALIDATE PROPER CSV TYPE OF FILE
-function getMetadataForFileList(file) {
-  if (!file) {
-    throw new Error('empty file');
-  }
-  // Not supported in Safari for iOS.
-  const name = file.name ? file.name : new Error();
-  // Not supported in Firefox for Android or Opera for Android.
-  const type = file.type
-    ? file.type
-    : new Error(
-        'Not Supported File format. Only CSV file extension is allowed!'
-      );
-  // Unknown cross-browser support.
-  const size = file.size ? file.size : new Error();
+const dropArea = document.querySelector('.dragNdrop label');
 
-  if (type instanceof Error) {
-    throw type;
-  }
+dropArea.addEventListener('dragover', (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+  // Style the drag-and-drop as a "copy file" operation.
+  e.dataTransfer.dropEffect = 'copy';
+});
 
-  console.log({ file, name, type, size });
-  //}
-}
+dropArea.addEventListener('drop', (e) => previewFile(e));
 
-let records = [];
 function csvToArray(str, delimiter = ',') {
   // slice from start of text to the first \n index
   // use split to create an array from string by delimiter
