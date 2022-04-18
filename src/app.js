@@ -75,7 +75,7 @@ async function requestDataHandler(event) {
   if (!records[0]) {
     return;
   }
-  letselectedDate = new Date(records[0].acquiredDate);
+  let selectedDate = new Date(records[0].acquiredDate);
   let dateObj = {
     day: selectedDate.getDate(),
     month: (selectedDate.getMonth() - 1).toLocaleString('en-US', {
