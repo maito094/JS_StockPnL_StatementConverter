@@ -87,8 +87,10 @@ async function requestDataHandler(event) {
 
   let result = await getConversionRateByDate(dateObj);
   let resultHTMLElement = document.createElement('body');
-  resultHTMLElement.innerHTML = result.contents;
   console.log(resultHTMLElement);
-  console.log(resultHTMLElement.querySelectorAll('.table_box tbody tr'));
-  content.innerText = result.contents;
+  resultHTMLElement.innerHTML = result.contents;
+  let currentTable = resultHTMLElement.querySelectorAll('.table_box tbody tr');
+  console.log(currentTable);
+  content.innerText = '';
+  currentTable.forEach(r=>content.innerText+=r.innerHTML);
 }
