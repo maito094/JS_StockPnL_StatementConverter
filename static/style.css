@@ -1,30 +1,32 @@
 .dragNdrop{
-    
+    display: flex;
+    justify-content: space-evenly;
     padding: 15px;
     margin: 15px;
     border-style: groove;
-    border-width: 5px;
     border-radius: 5%;
     border-color: cadetblue ;
 }
 
 
-div p{
-    display: inline-block;
+label p input button{
+   
+    padding: 10px;
+    margin: 10px;
+    font-size: 1rem;
    
 }
 .preview{
     text-align: center;
 }
 label {
-    display: inline-flex;
     background-color: #7F9CCB;
     padding: 10px;
+    margin: 10px;
     border-radius: 5px;
     border: 1px ridge black;
-    font-size: 0.8rem;
+    font-size: 1rem;
     height: auto;
-    margin: 10px;
   }
 
 label:hover {
@@ -33,6 +35,6 @@ label:hover {
     padding: 10px;
     border-radius: 5px;
     border: 1px ridge black;
-    font-size: 0.8rem;
+    font-size: 1rem;
     height: auto;
   }
