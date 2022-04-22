@@ -78,17 +78,19 @@ async function requestDataHandler(event) {
   let selectedDate = new Date(records[0].acquiredDate);
   let dateObj = {
     day: selectedDate.getDate(),
-    month: (selectedDate.getMonth() - 1).toLocaleString('en-US', {
+    month: (selectedDate.getMonth()+1).toLocaleString('en-US', {
       minimumIntegerDigits: 2,
       useGrouping: false,
     }),
     year: selectedDate.getFullYear(),
   };
-
+console.log(dateObj);
   let result = await getConversionRateByDate(dateObj);
+  console.log(result);
   let resultHTMLElement = document.createElement('body');
+  
+  resultHTMLElement.innerHTML = result;
   console.log(resultHTMLElement);
-  resultHTMLElement.innerHTML = result.contents;
   let currentTable = resultHTMLElement.querySelectorAll('.table_box tbody tr');
   console.log(currentTable);
   content.innerText = '';

@@ -1,11 +1,13 @@
-const proxyCORS = 'https://api.allorigins.win/get?url=';
 
-const host = proxyCORS + 'https://bnb.bg/Statistics/StExternalSector/StExchangeRates/StERForeignCurrencies/';
+// https://github.com/Rob--W/cors-anywhere/issues/301    = Should make a Self-hosting CORS
+const proxyCORS = (targetURL) => `https://cors-anywhere.herokuapp.com/${targetURL}`;
+
+const host ='https://bnb.bg/Statistics/StExternalSector/StExchangeRates/StERForeignCurrencies/';
 
 
 async function request(url, options) {
   try {
-    const response = await fetch(host + url, options);
+    const response = await fetch(proxyCORS(host + url), options);
 
     if (response.ok != true) {
       const error = await response.json();
@@ -15,7 +17,7 @@ async function request(url, options) {
     if (response.status == 204) {
       return response;
     } else {
-      return response.json();
+      return response.text();//.json();
     }
   } catch (err) {
     alert(err.message);
