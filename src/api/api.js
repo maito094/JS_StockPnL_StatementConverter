@@ -1,13 +1,8 @@
 
-// https://github.com/Rob--W/cors-anywhere/issues/301    = Should make a Self-hosting CORS
-const proxyCORS = (targetURL) => `https://cors-anywhere.herokuapp.com/${targetURL}`;
 
-const host ='https://bnb.bg/Statistics/StExternalSector/StExchangeRates/StERForeignCurrencies/';
-
-
-async function request(url, options) {
+async function request(urlQuery, options) {
   try {
-    const response = await fetch(proxyCORS(host + url), options);
+    const response = await fetch(`/api/${urlQuery}`, options); //?rateurl=$
 
     if (response.ok != true) {
       const error = await response.json();
@@ -33,11 +28,12 @@ function createOptions(method = 'get', data) {
 
   if (method == 'get') {
     options.headers['Content-Type'] = 'text/html;charset=utf-8';
+    
   }
 
   return options;
 }
 
-export async function get(url) {
-  return request(url, createOptions());
+export async function get(urlQuery) {
+  return request(urlQuery, createOptions());
 }

@@ -268,3 +268,7 @@ FakesAssemblies/
 *.xls
 *.xlsx
 *.xlsm
+
+# Environment variables
+
+*.env
